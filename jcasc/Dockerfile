@@ -1,7 +1,9 @@
 FROM jenkins/jenkins:latest
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
+ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yaml
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+COPY casc.yaml /var/jenkins_home/casc.yaml
 USER root
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 RUN echo 'deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main' | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
